@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdr.interview.mapper.UserTeststatusMapper">
+  <resultMap id="BaseResultMap" type="com.jdr.interview.entity.UserTeststatus">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="uid" jdbcType="INTEGER" property="uid" />
+    <id column="exer_id" jdbcType="INTEGER" property="exerId" />
+    <result column="study_num" jdbcType="INTEGER" property="studyNum" />
+    <result column="right_rate" jdbcType="DOUBLE" property="rightRate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    uid, exer_id, study_num, right_rate
+  </sql>
+</mapper>

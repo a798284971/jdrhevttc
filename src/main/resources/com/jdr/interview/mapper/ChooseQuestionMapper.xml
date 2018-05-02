@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdr.interview.mapper.ChooseQuestionMapper">
+  <resultMap id="BaseResultMap" type="com.jdr.interview.entity.ChooseQuestion">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="superioe" jdbcType="INTEGER" property="superioe" />
+    <result column="question" jdbcType="VARCHAR" property="question" />
+    <result column="A" jdbcType="VARCHAR" property="a" />
+    <result column="B" jdbcType="VARCHAR" property="b" />
+    <result column="C" jdbcType="VARCHAR" property="c" />
+    <result column="D" jdbcType="VARCHAR" property="d" />
+    <result column="hasPic" jdbcType="INTEGER" property="haspic" />
+    <result column="pic" jdbcType="VARCHAR" property="pic" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    Id, superioe, question, A, B, C, D, hasPic, pic, type
+  </sql>
+</mapper>

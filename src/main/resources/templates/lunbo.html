@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<title>后台管理主页</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- VENDOR CSS -->
+	<link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/vendor/linearicons/style.css">
+	<link rel="stylesheet" href="assets/vendor/chartist/css/chartist-custom.css">
+	<link rel="stylesheet" href="assets/vendor/toastr/toastr.min.css">
+	<!-- MAIN CSS -->
+	<link rel="stylesheet" href="assets/css/main.css">
+	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+	<link rel="stylesheet" href="assets/css/demo.css">
+	<!-- GOOGLE FONTS -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+	<!-- ICONS -->
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+</head>
+
+<body>
+	<!-- WRAPPER -->
+	<div id="wrapper">
+		<!-- NAVBAR -->
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="brand">
+				<a href="/login"><img src="assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+			</div>
+			<div class="container-fluid">
+				<div class="navbar-btn">
+					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+				</div>
+				
+				<!-- <div class="navbar-btn navbar-btn-right">
+					<a class="btn btn-success update-pro" href="#downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
+				</div> -->
+				<div id="navbar-menu">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+								<i class="lnr lnr-alarm"></i>
+								<span class="badge bg-danger">5</span>
+							</a>
+							<ul class="dropdown-menu notifications">
+								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>7号桌订单</a></li>
+								<li><a href="#" class="notification-item"><span class="dot bg-danger"></span>7号桌订单</a></li>
+								<li><a href="#" class="notification-item"><span class="dot bg-success"></span>7号桌订单</a></li>
+								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>7号桌订单</a></li>
+								<li><a href="#" class="notification-item"><span class="dot bg-success"></span>7号桌订单</a></li>
+								<li><a href="#" class="more">查看所有反馈</a></li>
+							</ul>
+						</li>
+						<!-- <li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="lnr lnr-question-circle"></i> <span>Help</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Basic Use</a></li>
+								<li><a href="#">Working With Data</a></li>
+								<li><a href="#">Security</a></li>
+								<li><a href="#">Troubleshooting</a></li>
+							</ul>
+						</li> -->
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user.png" class="img-circle" alt="Avatar"> <span>管理员</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+							<ul class="dropdown-menu">
+								
+								<li id="exitlogin"><a href =""><i class="lnr lnr-exit" ></i> <span>退出</span></a></li>
+							</ul>
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+		</nav>
+		 <div id="sidebar-nav" class="sidebar">
+			<div class="sidebar-scroll">
+				<nav>
+					<ul class="nav">
+						<li>
+							<a href="#sub" data-toggle="collapse" class="collapsed"><i class="lnr lnr-alarm"></i> <span>题目标题管理</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<div id="sub" class="collapse ">
+								<ul class="nav">
+									<li><a href="totitle" class="">一级标题管理</a></li>
+									<li><a href="totitle2" class="">二级标题管理</a></li>
+								</ul>
+							</div>
+						</li>
+						<li><a href="#subp" data-toggle="collapse" class="collapsed"><i class="lnr lnr-pencil"></i> <span>题目管理</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<div id="subp" class="collapse ">
+								<ul class="nav">
+									<li><a href="toquestion" class="">管理题目</a></li>
+									<li><a href="toaddques" class="">添加题目</a></li>			
+								</ul>
+							</div>
+						</li>
+						<li><a href="tomain" ><i class="lnr lnr-home"></i> <span>主页</span></a></li>
+						<!-- <li><a href="elements.html" class=""><i class="lnr lnr-code"></i> <span>餐桌管理</span></a></li> -->
+						<li>
+							<a href="#subPages" data-toggle="collapse" class="collapsed active"><i class="lnr lnr-file-empty"></i> <span>APP相关管理</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<div id="subPages" class="collapse ">
+								<ul class="nav">
+									<li><a href="tolunbo" class="">首页轮播图</a></li>
+									<li><a href="tomessage" class="">轮询消息</a></li>
+									
+								</ul>
+							</div>
+						</li>
+					
+						
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<div class="main" id="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<!-- 每一页的内容 -->
+					<div class="col-md-12">
+						<!-- TABLE HOVER -->
+						
+
+							<div class="panel">
+								<ul class="dropdown-menu notifications">
+								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
+								<li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
+								<li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li>
+								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
+								<li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li>
+								<li><a href="#" class="more">See all notifications</a></li>
+							</ul>
+								<div class="panel-heading ">
+									<h3 class="panel-title">轮播图管理</h3>
+								</div>
+								
+								<br>
+								<div class="input-group col-xs-10"  id="title">
+								<button id="addbtn" type="button" @click="addbtn" class="btn btn-success right">添加</button>
+								</div>
+							<br>
+								<br>
+									<table class="table table-hover" style="table-layout:fixed">
+										<thead>
+											<tr>
+												<th>轮播图编号</th>
+												<th>图片</th>
+												<th>内容</th>
+												<th>操作</th>
+											</tr>
+										</thead>
+										<tbody id="menu">
+											<tr id="add">
+												<td>默认值</td>
+												<td>
+												<input type="file" class="img-responsive"  @change="tirggerFile($event)">
+												</td>
+												<td>
+												<input name="title" v-model="addValue" type="text" class="img-responsive" >
+												</td>
+												
+												<td><button type="submit"  @click="addItem" class="btn btn-success">添加</button>
+												<button id="qxbtn" type="button" @click="qx" class="btn btn-info">取消</button>
+												</td>
+												</tr>
+											<tr id="update">
+												<td id="update_id">{{id}}</td>
+												<td>
+												<input type="file" name ="image" class="img-responsive" @change="updateFile($event)">
+												</td>
+												<td>
+												<input id="" v-model="content" type="text" class="img-responsive">
+												</td>
+												<td><button type="button" @click="vue_update" class="btn btn-success">确定</button>
+												<button id="qxbtn" type="button" @click="vue_qx" class="btn btn-info">取消</button></td>
+												</tr>
+											<div v-if="data!=null">
+											<tr v-for="(val,ind) in data">
+												<td>{{val.id}}</td>
+												<td><img :src="val.imgsrc" :widht="200"  :height="100"></td>
+												<td>{{val.content}}</td>
+												<td>
+												<div id="toastr-demo" >
+													<button @click="update(val.id,val.content)" type="button" class="btn btn-success btn-toastr" data-context="success" data-position="top-right">编辑</button>
+													<button @click="dele(val.id)" type="button" class="btn btn-danger" data-context="success"  data-position="top-right">删除</button></div></td>
+												</tr>
+											</div>
+										</tbody>
+									</table>
+							<!-- END TABLE HOVER -->
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<!-- Javascript -->
+	<script src="assets/vendor/jquery/jquery.min.js"></script>
+	<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+	<!-- <script src="assets/vendor/chartist/js/chartist.min.js"></script> -->
+	<script src="assets/scripts/klorofil-common.js"></script>
+	<script src="assets/vendor/toastr/toastr.min.js"></script>
+	<script src="assets/scripts/vue.js"></script>
+	<script src="assets/scripts/vue-resource.min.js"></script>
+	<script>
+	document.getElementById("add").style.display="none";
+	document.getElementById("update").style.display="none";
+	$(function() {
+		var data, options;
+			//document.getElementById("czname").value="";
+			//document.getElementById("czpassword").value="";
+		// headline charts
+		data = {
+			labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+			series: [
+				[23, 29, 24, 40, 25, 24, 35],
+				[14, 25, 18, 34, 29, 38, 44],
+			]
+		};
+
+		options = {
+			height: 300,
+			showArea: true,
+			showLine: false,
+			showPoint: false,
+			fullWidth: true,
+			axisX: {
+				showGrid: false
+			},
+			lineSmooth: false,
+		};
+
+		//new Chartist.Line('#headline-chart', data, options);
+
+
+		// visits trend charts
+		data = {
+			labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+			series: [{
+				name: 'series-real',
+				data: [200, 380, 350, 320, 410, 450, 570, 400, 555, 620, 750, 900],
+			}, {
+				name: 'series-projection',
+				data: [240, 350, 360, 380, 400, 450, 480, 523, 555, 600, 700, 800],
+			}]
+		};
+
+		options = {
+			fullWidth: true,
+			lineSmooth: false,
+			height: "270px",
+			low: 0,
+			high: 'auto',
+			series: {
+				'series-projection': {
+					showArea: true,
+					showPoint: false,
+					showLine: false
+				},
+			},
+			axisX: {
+				showGrid: false,
+
+			},
+			axisY: {
+				showGrid: false,
+				onlyInteger: true,
+				offset: 0,
+			},
+			chartPadding: {
+				left: 20,
+				right: 20
+			}
+		};
+
+		//new Chartist.Line('#visits-trends-chart', data, options);
+
+
+		// visits chart
+		data = {
+			labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+			series: [
+				[6384, 6342, 5437, 2764, 3958, 5068, 7654]
+			]
+		};
+
+		options = {
+			height: 300,
+			axisX: {
+				showGrid: false
+			},
+		};
+
+		//new Chartist.Bar('#visits-chart', data, options);
+
+
+		// real-time pie chart
+		var sysLoad = $('#system-load').easyPieChart({
+			size: 130,
+			barColor: function(percent) {
+				return "rgb(" + Math.round(200 * percent / 100) + ", " + Math.round(200 * (1.1 - percent / 100)) + ", 0)";
+			},
+			trackColor: 'rgba(245, 245, 245, 0.8)',
+			scaleColor: false,
+			lineWidth: 5,
+			lineCap: "square",
+			animate: 800
+		});
+
+		/*var updateInterval = 3000; // in milliseconds
+
+		setInterval(function() {
+			var randomVal;
+			randomVal = getRandomInt(0, 100);
+
+			sysLoad.data('easyPieChart').update(randomVal);
+			sysLoad.find('.percent').text(randomVal);
+		}, updateInterval);
+		*/
+		function getRandomInt(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+
+	});
+	$("#exitlogin").click(function(){
+		$.ajax({
+			url:"adminer/logout"
+		}).done(function(){
+			location.href="login"
+		})
+	}) 
+	var vue =new Vue({
+			
+			el:"#main",
+			data:{
+				data:null,
+				addValue:null,
+				id:null,
+				file:"",
+				updFile:null,
+				content:null
+			},
+			mounted:function(){
+				this.$http.get("app/getLunbo").then(function(res){
+					console.log(res.data.data);
+					if(res.data.success){
+						this.data=res.data.data;
+					}else{
+						alert("请求数据失败")
+					}
+					
+				},function(){
+					alert("请求数据失败")
+				}) 
+				
+			},
+			methods:{
+				addbtn:function(){
+					document.getElementById("add").style.display="";
+				},
+				qx:function(){
+					document.getElementById("add").style.display="none";
+				},
+				update:function(id,content){
+					document.getElementById("update").style.display="";
+					this.id=id;
+					this.content=content;	
+				},
+				addItem:function(){
+					 var formData = new FormData(); 
+				     formData.append('file', this.file);
+				     formData.append('content',this.addValue);
+				     let config = { headers: { 'Content-Type': 'multipart/form-data' } };
+				     this.$http.post('adminer/addLunbo', formData,config).then(function (res) {
+				    	 console.log(res.data);
+				          console.log(res.data.msg);
+				          if(res.data.success){
+				        	  this.refrsh();
+				        	  document.getElementById("add").style.display="none";
+				        	  this.addValue = "";
+				        	  this.file = "";
+				          }else{
+				        	  alert("添加失败");
+				          }
+				     },function(){
+				    	 alert("添加失败"); 
+				     })
+				},
+				dele:function(index){
+					if(!confirm("确定删除")){
+						return;
+					}
+				  this.$http.post("adminer/deleLunbo",{id:index},{emulateJSON: true}).then(function(res){
+				  	if(res.data.success){
+				  		this.refrsh();
+				  	}else{
+				  		alert("删除失败");
+				  	}
+				  
+				  },function(){
+				  	alert("删除失败");
+				  })
+				},
+				vue_update:function(){
+					 var formData = new FormData(); 
+				     formData.append('file', this.updFile);
+				     formData.append('content',this.content);
+				     formData.append('id',this.id);
+				     let config = { headers: { 'Content-Type': 'multipart/form-data' } };
+				     this.$http.post('adminer/updateLunbo', formData,config).then(function (res) {
+				          if(res.data.success){
+				        	  document.getElementById("update").style.display="none";
+				        	  this.refrsh();
+				          }else{
+				        	  alert("修改失败");
+				          }
+				     },function(){
+				    	 alert("修改失败"); 
+				     }) 
+				},
+				vue_qx:function(){
+					document.getElementById("update").style.display="none";
+				},
+				tirggerFile : function (event) {
+					 this.file = event.target.files[0]; 
+				},
+				updateFile : function (event) {
+					 this.updFile = event.target.files[0]; 
+				},
+				refrsh:function(){
+					this.$http.get("app/getLunbo").then(function(res){
+						console.log(res.data.data);
+						this.data=res.data.data;
+					},function(){
+						alert("请求数据失败")
+					}) 
+				}
+			}
+		})
+		
+	</script>
+</body>
+
+</html>

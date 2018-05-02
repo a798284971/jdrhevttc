@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdr.interview.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.jdr.interview.entity.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="nickName" jdbcType="VARCHAR" property="nickname" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="birth" jdbcType="VARCHAR" property="birth" />
+    <result column="education" jdbcType="VARCHAR" property="education" />
+    <result column="avastar" jdbcType="VARCHAR" property="avastar" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    Id, userName, password, nickName, sex, birth, education, avastar
+  </sql>
+  <sql id="userColum">
+    u.id AS "id",
+    u.userName AS "userName",
+    u.nickName AS "nickName",
+    u.sex AS "sex",
+    u.birth AS "birth",
+    u.education AS "education"
+  </sql>
+  <select id="findUserByUserName" resultType="com.jdr.interview.entity.User">
+  Select
+  	<include refid="userColum" />
+  	 FROM user u
+  	 WHERE
+  	 <if test="userName!=null and userName!=''">
+  	 	u.userName = #{userName}
+  	 </if>
+  	 <if test="password!=null and password!=''">
+  	 	AND u.password = #{password}
+  	 </if>	
+  </select>
+  
+</mapper>

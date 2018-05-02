@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdr.interview.mapper.UserStatusMapper">
+  <resultMap id="BaseResultMap" type="com.jdr.interview.entity.UserStatus">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="question_num" jdbcType="INTEGER" property="questionNum" />
+    <result column="sign_num" jdbcType="INTEGER" property="signNum" />
+    <result column="study_num" jdbcType="INTEGER" property="studyNum" />
+    <result column="time_stamp" jdbcType="VARCHAR" property="timeStamp" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    user_id, question_num, sign_num, study_num, time_stamp
+  </sql>
+</mapper>

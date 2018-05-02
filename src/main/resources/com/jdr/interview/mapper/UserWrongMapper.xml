@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdr.interview.mapper.UserWrongMapper">
+  <resultMap id="BaseResultMap" type="com.jdr.interview.entity.UserWrong">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="question_id" jdbcType="INTEGER" property="questionId" />
+    <result column="createTime" jdbcType="VARCHAR" property="createtime" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="superioe" jdbcType="INTEGER" property="superioe" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    Id, user_id, question_id, createTime, type, superioe
+  </sql>
+   <select id="findWrongSuper" resultType="String">
+  Select
+  	distinct
+  	superioe
+  	 FROM user_wrong w
+  	 WHERE
+  	 	w.user_id = #{user_id}
+  	 <if test="type != null">
+  	 AND
+  	 	w.type = #{type}
+  	 </if>
+  </select>
+</mapper>
