@@ -198,7 +198,7 @@ public class ExerciseService {
 			Example example2 = new Example(ChooseQuestion.class);
 			example2.createCriteria().andEqualTo("superioe",temp);
 			List<ChooseQuestion> questions  = chooseMapper.selectByExample(example2);
-			if(select.get(0)==null) {
+			if(select==null||select.size()==0) {
 				userTeststatus.setStudyNum(1);
 				if(select2.size()==0)
 					userTeststatus.setRightRate(0.0);
