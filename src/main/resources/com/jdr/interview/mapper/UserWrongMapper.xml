@@ -11,12 +11,13 @@
     <result column="createTime" jdbcType="VARCHAR" property="createtime" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="superioe" jdbcType="INTEGER" property="superioe" />
+    <result column="wrong_answer" jdbcType="VARCHAR" property="wrongAnswer" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--
       WARNING - @mbg.generated
     -->
-    Id, user_id, question_id, createTime, type, superioe
+    Id, user_id, question_id, createTime, type, superioe, wrong_answer
   </sql>
    <select id="findWrongSuper" resultType="String">
   Select

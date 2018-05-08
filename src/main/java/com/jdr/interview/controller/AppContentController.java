@@ -57,8 +57,8 @@ public class AppContentController {
 	 * @return
 	 */
 	@GetMapping("talkFighUp")
-	public BusinessMessage<String> talkFighUp(String uid,String talkId){
-		return appContentService.talkFighUp(uid,talkId).build();
+	public BusinessMessage<String> talkFighUp(String uid,String talkId,String type){
+		return appContentService.talkFighUp(uid,talkId,type).build();
 	}
 	/**
 	 * 添加评论

@@ -66,7 +66,7 @@ public class CollectAndWrongaController {
 	 * @return
 	 */
 	@GetMapping("commitWrong")
-	public BusinessMessage<String> CommitWrong(String uid,String questionId,String type){
-		return exeUserService.CommitWrong(uid,questionId,type).build();
+	public BusinessMessage<String> CommitWrong(String uid,String questionId,String type,String wrongAnswer){
+		return exeUserService.CommitWrong(uid,questionId,type,wrongAnswer).build();
 	}
 }

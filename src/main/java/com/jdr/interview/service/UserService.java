@@ -157,7 +157,7 @@ public class UserService {
 				userSettingMapper.insertSelective(userSetting);
 				
 				Example example2 = new Example(ZxExercise.class);
-				example2.createCriteria().andNotEqualTo("superipe",0);
+				example2.createCriteria().andNotEqualTo("superioe",0);
 				List<ZxExercise> superioeList = zxExeriseMapper.selectByExample(example2);
 				for (ZxExercise zxExercise : superioeList) {
 					UserTeststatus userTeststatus = new UserTeststatus();

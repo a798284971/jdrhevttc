@@ -10,9 +10,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @MapperScan("com.jdr.interview.mapper")
-public class JiadongranApplication{
+public class JiadongranApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
 		SpringApplication.run(JiadongranApplication.class, args);
 	}
+	protected SpringApplicationBuilder configure(
+            SpringApplicationBuilder application) {
+        return application.sources(JiadongranApplication.class);
+    }
 }

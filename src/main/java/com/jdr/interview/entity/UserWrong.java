@@ -23,6 +23,9 @@ public class UserWrong implements Serializable {
 
     private Integer superioe;
 
+    @Column(name = "wrong_answer")
+    private String wrongAnswer;
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -109,6 +112,20 @@ public class UserWrong implements Serializable {
         this.superioe = superioe;
     }
 
+    /**
+     * @return wrong_answer
+     */
+    public String getWrongAnswer() {
+        return wrongAnswer;
+    }
+
+    /**
+     * @param wrongAnswer
+     */
+    public void setWrongAnswer(String wrongAnswer) {
+        this.wrongAnswer = wrongAnswer == null ? null : wrongAnswer.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -121,6 +138,7 @@ public class UserWrong implements Serializable {
         sb.append(", createtime=").append(createtime);
         sb.append(", type=").append(type);
         sb.append(", superioe=").append(superioe);
+        sb.append(", wrongAnswer=").append(wrongAnswer);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -85,7 +85,7 @@ public class AppContentService {
         Date date=new Date();  
         Calendar calendar = Calendar.getInstance();  
         calendar.setTime(date);  
-        calendar.add(Calendar.DAY_OF_MONTH, -2);  
+        calendar.add(Calendar.DAY_OF_MONTH, -15);  
         date = calendar.getTime();  
 		example.createCriteria().andCondition("create_time>", DateUtil.getTimesTamp(date));
 		example.setOrderByClause("create_time DESC");
@@ -117,28 +117,41 @@ public class AppContentService {
 		.success(true);
 		return builder;
 	}
-	public BusinessMessageBuilder<String> talkFighUp(String uid, String talkId) {
+	public BusinessMessageBuilder<String> talkFighUp(String uid, String talkId, String type) {
 		BusinessMessageBuilder<String> builder = new BusinessMessageBuilder<String>();
 		UserFightup userFightup = new UserFightup();
 		userFightup.setTalkId(Integer.parseInt(talkId));
 		userFightup.setUserId(Integer.parseInt(uid));
-		int selectCount = fightMapper.selectCount(userFightup);
-		if(selectCount==0) {
-			userFightup.setCreateTime(DateUtil.getTimesTamp(new Date()));
-			int insert = fightMapper.insert(userFightup);
-			if(insert!=0) {
+		if(type.equals("0")) {
+			int selectCount = fightMapper.selectCount(userFightup);
+			if(selectCount==0) {
+				userFightup.setCreateTime(DateUtil.getTimesTamp(new Date()));
+				int insert = fightMapper.insert(userFightup);
+				if(insert!=0) {
+					userFightup.setUserId(null);
+					builder.msg("点赞成功")
+					.success(true)
+					.data(fightMapper.selectCount(userFightup)+"");
+				}else {
+					builder.msg("点赞失败")
+					.success(false);
+				}
+				
+			}else {
+				builder.msg("已经赞过了")
+				.success(false);
+			}
+		}else {
+			int delete = fightMapper.delete(userFightup);
+			if(delete!=0) {
 				userFightup.setUserId(null);
-				builder.msg("点赞成功")
+				builder.msg("删除成功")
 				.success(true)
 				.data(fightMapper.selectCount(userFightup)+"");
 			}else {
-				builder.msg("点赞失败")
+				builder.msg("删除失败")
 				.success(false);
 			}
-			
-		}else {
-			builder.msg("已经赞过了")
-			.success(false);
 		}
 		return builder;
 	}

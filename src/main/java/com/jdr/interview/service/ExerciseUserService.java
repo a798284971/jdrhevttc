@@ -14,6 +14,7 @@ import com.alibaba.druid.util.StringUtils;
 import com.jdr.interview.bean.BusinessMessageBuilder;
 import com.jdr.interview.bean.CollectBean;
 import com.jdr.interview.bean.ExericiseListBean;
+import com.jdr.interview.bean.WrongTitleBean;
 import com.jdr.interview.entity.Answer;
 import com.jdr.interview.entity.ChooseQuestion;
 import com.jdr.interview.entity.CorrectRate;
@@ -79,13 +80,27 @@ public class ExerciseUserService {
 			ZxExercise key = exerciseMapper.selectByPrimaryKey(Integer.parseInt(s));
 			UserWrong userWrong = new UserWrong();
 			userWrong.setUserId(Integer.parseInt(uid));
-			userWrong.setType(Integer.parseInt(type));
+//			userWrong.setType(Integer.parseInt(type));
 			userWrong.setSuperioe(Integer.parseInt(s));
 			List<UserWrong> select = userWrongMapper.select(userWrong);
+			ArrayList<WrongTitleBean>  isData = new ArrayList<WrongTitleBean>();
+			for (UserWrong userWrongBean : select) {
+				ChooseQuestion selectByPrimaryKey = chooseQuestionMapper.selectByPrimaryKey(userWrongBean.getQuestionId());
+				WrongTitleBean wrongTitleBean = new WrongTitleBean();
+				wrongTitleBean.setCreatetime(userWrongBean.getCreatetime());
+				wrongTitleBean.setId(userWrongBean.getId());
+				wrongTitleBean.setQuestionId(userWrongBean.getQuestionId());
+				wrongTitleBean.setSuperioe(userWrongBean.getSuperioe());
+				wrongTitleBean.setTitle(selectByPrimaryKey.getQuestion());
+				wrongTitleBean.setType(userWrongBean.getType());
+				wrongTitleBean.setUserId(userWrongBean.getUserId());
+				wrongTitleBean.setWrongAnswer(userWrongBean.getWrongAnswer());
+				isData.add(wrongTitleBean);
+			}
 			ExericiseListBean listBean = new ExericiseListBean();
 			listBean.setId(key.getId());
 			listBean.setTitle(key.getTitle());
-			listBean.setDataList(select);
+			listBean.setDataList(isData);
 			data.add(listBean);
 		}
 		builder.success(true)
@@ -132,7 +147,7 @@ public class ExerciseUserService {
 		return builder;
 	}
 	@Transactional
-	public BusinessMessageBuilder<String> CommitWrong(String uid, String questionId, String type) {
+	public BusinessMessageBuilder<String> CommitWrong(String uid, String questionId, String type,String wrongAnswer) {
 		BusinessMessageBuilder<String> builder = new BusinessMessageBuilder<>();
 		UserWrong userWrong = new UserWrong();
 		userWrong.setUserId(Integer.parseInt(uid));
@@ -140,6 +155,7 @@ public class ExerciseUserService {
 		userWrong.setType(Integer.parseInt(type));
 		userWrong.setCreatetime(DateUtil.getStringDate(new Date()));	
 		userWrong.setSuperioe(chooseQuestionMapper.selectByPrimaryKey(Integer.parseInt(questionId)).getSuperioe());
+		userWrong.setWrongAnswer(wrongAnswer);
 		CorrectRate correctRate = correctRateMapper.selectByPrimaryKey(Integer.parseInt(questionId));
 		correctRate.setWrong(correctRate.getWrong()+1);
 		correctRateMapper.updateByPrimaryKey(correctRate);
