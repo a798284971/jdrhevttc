@@ -239,31 +239,9 @@ public class ExerciseService {
 		Example example = new Example(ChooseQuestion.class);
 		Criteria criteria = example.createCriteria();
 		criteria.andEqualTo("superioe",Integer.parseInt(superioe));
-		UserSetting settingKey = userSettingMapper.selectByPrimaryKey(Integer.parseInt(uid));
 		
-		
-		if(settingKey.getExamType().equals(EXAM_TYPE_NEWEXERCISE)) {
-			Example wrongExample = new Example(UserWrong.class);
-			wrongExample.createCriteria().andEqualTo("userId",Integer.parseInt(uid));
-			List<UserWrong> wrongList = wrongMapper.selectByExample(wrongExample);
-			ArrayList<Integer> list = new ArrayList<Integer>();
-			for(UserWrong bean:wrongList) {
-				list.add(bean.getQuestionId());
-			}
-			criteria.andNotIn("id", list);
-		}
-		if(settingKey.getExamType().equals(Exam_TYPE_WRONGEXERCISE)) {
-			Example wrongExample = new Example(UserWrong.class);
-			wrongExample.createCriteria().andEqualTo("userId",Integer.parseInt(uid));
-			List<UserWrong> wrongList = wrongMapper.selectByExample(wrongExample);
-			ArrayList<Integer> list = new ArrayList<Integer>();
-			for(UserWrong bean:wrongList) {
-				list.add(bean.getQuestionId());
-			}
-			criteria.andIn("id", list);
-		}
 		List<ChooseQuestion> data = chooseMapper.selectByExample(example);
-		builder.data(getRandomList(data, settingKey.getExamNum()));
+		builder.data(getRandomList(data, 5));
 		builder.success(true);
 		builder.msg("查找成功");
 		return builder;
@@ -295,4 +273,47 @@ public class ExerciseService {
         }
         return newList;
     }
+	public BusinessMessageBuilder<List<ChooseQuestion>> getExamQuestion(String uid) {
+		BusinessMessageBuilder<List<ChooseQuestion>> builder = new BusinessMessageBuilder<List<ChooseQuestion>>();
+		Example example = new Example(ChooseQuestion.class);
+		Criteria criteria = example.createCriteria();
+		
+		UserSetting settingKey = userSettingMapper.selectByPrimaryKey(Integer.parseInt(uid));
+		
+		
+		if(settingKey.getExamType().equals(EXAM_TYPE_NEWEXERCISE)) {
+			Example wrongExample = new Example(UserWrong.class);
+			wrongExample.createCriteria().andEqualTo("userId",Integer.parseInt(uid));
+			List<UserWrong> wrongList = wrongMapper.selectByExample(wrongExample);
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			for(UserWrong bean:wrongList) {
+				list.add(bean.getQuestionId());
+			}
+			criteria.andNotIn("id", list);
+		}
+		if(settingKey.getExamType().equals(Exam_TYPE_WRONGEXERCISE)) {
+			Example wrongExample = new Example(UserWrong.class);
+			wrongExample.createCriteria().andEqualTo("userId",Integer.parseInt(uid));
+			List<UserWrong> wrongList = wrongMapper.selectByExample(wrongExample);
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			for(UserWrong bean:wrongList) {
+				list.add(bean.getQuestionId());
+			}
+			criteria.andIn("id", list);
+		}
+		
+		criteria.andEqualTo("type", 0);
+		List<ChooseQuestion> data = chooseMapper.selectByExample(example);
+		criteria.getAllCriteria().remove(criteria.getAllCriteria().size()-1);
+		criteria.andEqualTo("type", 1);
+		List<ChooseQuestion> data1 = chooseMapper.selectByExample(example);
+		int singleN = settingKey.getExamNum()*4/5;
+		int doubleN = settingKey.getExamNum()-singleN;
+		List randomList = getRandomList(data, singleN);
+		randomList.addAll(getRandomList(data1, doubleN));
+		builder.data(randomList);
+		builder.success(true);
+		builder.msg("查找成功");
+		return builder;
+	}
 }

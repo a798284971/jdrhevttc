@@ -64,9 +64,19 @@ public class ZxExerciseController {
 		String[] data = id;
 		return exerciseServicew.getAnswer(uid,data).build();
 	}
+	/**
+	 * 获取专项练习
+	 * @param uid    用户ID
+	 * @param superioe     题目上级
+	 * @return
+	 */
 	@GetMapping("getExamexercise")
 	public BusinessMessage<List<ChooseQuestion>> getExamexercise(String uid,String superioe){
 		return exerciseServicew.getExamexercise(uid,superioe).build();
+	}
+	@GetMapping("getExamQuestion")
+	public BusinessMessage<List<ChooseQuestion>> getExamQuestion(String uid){
+		return exerciseServicew.getExamQuestion(uid).build();
 	}
 }
 
