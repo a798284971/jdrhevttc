@@ -46,7 +46,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 				return true;
 
 			// 跳转登录
-			String url = "/login";
+			String url = "/interview/login";
 			response.sendRedirect(url);
 			return false;
 		}

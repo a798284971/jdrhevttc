@@ -93,13 +93,17 @@ public class UserService {
 		if (user != null) {
 			UserStatus status = statusMapper.selectByPrimaryKey(user.getId());
 			if(status!=null) {
-				Date date1 = DateUtil.getDateFromTimeStamp(status.getTimeStamp());
-				Date date = new Date();
-				if(date1.getYear()==date.getYear() && date1.getMonth()==date.getMonth() && 
-						date1.getDay()==date.getDay()) {
-				}else {
-					status.setStudyNum(0);
-					statusMapper.updateByPrimaryKey(status);
+				
+				if(!TextUtils.isEmpty(status.getTimeStamp())) {
+					Date date1=null;
+					date1= DateUtil.getDateFromTimeStamp(status.getTimeStamp());
+					Date date = new Date();
+					if(date1.getYear()==date.getYear() && date1.getMonth()==date.getMonth() && 
+							date1.getDay()==date.getDay()) {
+					}else {
+						status.setStudyNum(0);
+						statusMapper.updateByPrimaryKey(status);
+					}
 				}
 			}			
 			user.setPassword(null);
@@ -150,6 +154,7 @@ public class UserService {
 				User selectOne = userMapper.selectOne(user);
 				UserStatus userStatus = new UserStatus();
 				userStatus.setUserId(selectOne.getId());
+				userStatus.setTimeStamp(DateUtil.getTimesTamp(new Date()));
 				statusMapper.insertSelective(userStatus);
 				
 				UserSetting userSetting = new UserSetting();

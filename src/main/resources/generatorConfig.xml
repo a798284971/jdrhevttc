@@ -32,7 +32,7 @@
 
         <!-- 连接配置 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/interview?useSSL=false"
+                        connectionURL="jdbc:mysql://localhost:3306/interview?useUnicode=true&amp;characterEncoding=UTF-8"
                         userId="root"
                         password="root">
         </jdbcConnection>
