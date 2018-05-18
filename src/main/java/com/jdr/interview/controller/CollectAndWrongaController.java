@@ -55,8 +55,8 @@ public class CollectAndWrongaController {
 	 * @return
 	 */
 	@GetMapping("deleColl")
-	public BusinessMessage<String> deleteCollection(String id){
-		return exeUserService.deleteCollection(id).build();
+	public BusinessMessage<String> deleteCollection(String uid,String id){
+		return exeUserService.deleteCollection(uid,id).build();
 	}
 	/**
 	 * 提交错题接口

@@ -67,7 +67,7 @@ public class AppContentController {
 	 * @param text		   评论文字
 	 * @return
 	 */
-	@PostMapping("addTalk")
+	@GetMapping("addTalk")
 	public BusinessMessage<String> addTalk(String uid,String talkId,String text){
 		return appContentService.addTalk(uid,talkId,text).build();
 	}

@@ -135,9 +135,12 @@ public class ExerciseUserService {
 		return builder;
 	}
 	@Transactional
-	public BusinessMessageBuilder<String> deleteCollection(String id) {
+	public BusinessMessageBuilder<String> deleteCollection(String uid,String id) {
 		BusinessMessageBuilder<String> builder = new BusinessMessageBuilder<>();
-		int dele = userCollectMapper.deleteByPrimaryKey(Integer.parseInt(id));
+		UserColllect userColllect = new UserColllect();
+		userColllect.setUserId(Integer.parseInt(uid));
+		userColllect.setQuestionId(Integer.parseInt(id));
+		int dele = userCollectMapper.delete(userColllect);
 		if(dele==1)
 			builder.success(true)
 			.msg("删除收藏成功");
