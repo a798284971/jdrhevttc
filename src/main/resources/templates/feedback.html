@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 
@@ -100,7 +101,7 @@
 						<li><a href="tomain" ><i class="lnr lnr-home"></i> <span>主页</span></a></li>
 						<!-- <li><a href="elements.html" class=""><i class="lnr lnr-code"></i> <span>餐桌管理</span></a></li> -->
 						<li>
-							<a href="#subPages" data-toggle="collapse" class="collapsed active"><i class="lnr lnr-file-empty"></i> <span>APP相关管理</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>APP相关管理</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages" class="collapse ">
 								<ul class="nav">
 									<li><a href="tolunbo" class="">首页轮播图</a></li>
@@ -109,14 +110,15 @@
 								</ul>
 							</div>
 						</li>
-						<li><a href="feedback" class=""><i class="lnr lnr-cog"></i> <span>查看反馈</span></a></li>
-				
+						<li><a href="feedback" class="active"><i class="lnr lnr-cog"></i> <span>查看反馈</span></a></li>
+						
+					
 						
 					</ul>
 				</nav>
 			</div>
 		</div>
-		<div class="main" id="main">
+		<div class="main">
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
@@ -134,53 +136,34 @@
 								<li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li>
 								<li><a href="#" class="more">See all notifications</a></li>
 							</ul>
-								<div class="panel-heading ">
-									<h3 class="panel-title">消息管理</h3>
-								</div>
+								<div class="panel-heading">
+									<h3 class="panel-title">所有反馈</h3>
+									</div>
+									<div class="panel-body">
 								
 								<br>
-								<div class="input-group col-xs-10"  id="title">
-								<button id="addbtn" type="button" @click="addbtn" class="btn btn-success right">添加</button>
-								</div>
-							<br>
 								<br>
 									<table class="table table-hover" style="table-layout:fixed">
 										<thead>
 											<tr>
-												<th>消息编号</th>
-												<th>标题</th>
-												<th>内容</th>
-												<th>推送时间</th>
-												<th>操作</th>
+												<th>用户id</th>
+												<th>反馈内容</th>
+												<th>创建时间</th>
 											</tr>
 										</thead>
-										<tbody id="menu">
-											<tr id="add">
-												<td>默认值</td>
-												<td>
-												<input type="text" class="img-responsive"  v-model="addTitle">
-												</td>
-												<td>
-												<input name="content" v-model="addValue" type="text" class="img-responsive" >
-												</td>
-												<td>当前时间</td>
-												<td><button type="submit"  @click="addItem" class="btn btn-success">添加</button>
-												<button id="qxbtn" type="button" @click="qx" class="btn btn-info">取消</button>
-												</td>
-												</tr>
+										<tbody id="main">
 											
 											<tr v-for="(val,ind) in data">
-												<td>{{val.id}}</td>
-												<td v-text="val.title"></td>
+							
+												<td v-text="val.uid"></td>
 												<td v-text="val.content"></td>
 												<td v-text="val.createTime"></td>
-												<td>
-												<div id="toastr-demo" >
-													<button @click="dele(val.id)" type="button" class="btn btn-danger" data-context="success"  data-position="top-right">删除</button></div></td>
-												</tr>
+									
 											
 										</tbody>
 									</table>
+								</div>
+							</div>
 							<!-- END TABLE HOVER -->
 						</div>
 
@@ -200,205 +183,140 @@
 	<script src="assets/scripts/vue.js"></script>
 	<script src="assets/scripts/vue-resource.min.js"></script>
 	<script>
-	document.getElementById("add").style.display="none";
-	$(function() {
-		var data, options;
-			//document.getElementById("czname").value="";
-			//document.getElementById("czpassword").value="";
-		// headline charts
-		data = {
-			labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-			series: [
-				[23, 29, 24, 40, 25, 24, 35],
-				[14, 25, 18, 34, 29, 38, 44],
-			]
-		};
+		$(function() {
+			var data, options;
 
-		options = {
-			height: 300,
-			showArea: true,
-			showLine: false,
-			showPoint: false,
-			fullWidth: true,
-			axisX: {
-				showGrid: false
-			},
-			lineSmooth: false,
-		};
+			// headline charts
+			data = {
+				labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+				series: [
+					[23, 29, 24, 40, 25, 24, 35],
+					[14, 25, 18, 34, 29, 38, 44],
+				]
+			};
 
-		//new Chartist.Line('#headline-chart', data, options);
-
-
-		// visits trend charts
-		data = {
-			labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-			series: [{
-				name: 'series-real',
-				data: [200, 380, 350, 320, 410, 450, 570, 400, 555, 620, 750, 900],
-			}, {
-				name: 'series-projection',
-				data: [240, 350, 360, 380, 400, 450, 480, 523, 555, 600, 700, 800],
-			}]
-		};
-
-		options = {
-			fullWidth: true,
-			lineSmooth: false,
-			height: "270px",
-			low: 0,
-			high: 'auto',
-			series: {
-				'series-projection': {
-					showArea: true,
-					showPoint: false,
-					showLine: false
+			options = {
+				height: 300,
+				showArea: true,
+				showLine: false,
+				showPoint: false,
+				fullWidth: true,
+				axisX: {
+					showGrid: false
 				},
-			},
-			axisX: {
-				showGrid: false,
+				lineSmooth: false,
+			};
 
-			},
-			axisY: {
-				showGrid: false,
-				onlyInteger: true,
-				offset: 0,
-			},
-			chartPadding: {
-				left: 20,
-				right: 20
+			//new Chartist.Line('#headline-chart', data, options);
+
+
+			// visits trend charts
+			data = {
+				labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+				series: [{
+					name: 'series-real',
+					data: [200, 380, 350, 320, 410, 450, 570, 400, 555, 620, 750, 900],
+				}, {
+					name: 'series-projection',
+					data: [240, 350, 360, 380, 400, 450, 480, 523, 555, 600, 700, 800],
+				}]
+			};
+
+			options = {
+				fullWidth: true,
+				lineSmooth: false,
+				height: "270px",
+				low: 0,
+				high: 'auto',
+				series: {
+					'series-projection': {
+						showArea: true,
+						showPoint: false,
+						showLine: false
+					},
+				},
+				axisX: {
+					showGrid: false,
+
+				},
+				axisY: {
+					showGrid: false,
+					onlyInteger: true,
+					offset: 0,
+				},
+				chartPadding: {
+					left: 20,
+					right: 20
+				}
+			};
+
+			//new Chartist.Line('#visits-trends-chart', data, options);
+
+
+			// visits chart
+			data = {
+				labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+				series: [
+					[6384, 6342, 5437, 2764, 3958, 5068, 7654]
+				]
+			};
+
+			options = {
+				height: 300,
+				axisX: {
+					showGrid: false
+				},
+			};
+
+			//new Chartist.Bar('#visits-chart', data, options);
+
+
+			// real-time pie chart
+			var sysLoad = $('#system-load').easyPieChart({
+				size: 130,
+				barColor: function(percent) {
+					return "rgb(" + Math.round(200 * percent / 100) + ", " + Math.round(200 * (1.1 - percent / 100)) + ", 0)";
+				},
+				trackColor: 'rgba(245, 245, 245, 0.8)',
+				scaleColor: false,
+				lineWidth: 5,
+				lineCap: "square",
+				animate: 800
+			});
+
+			function getRandomInt(min, max) {
+				return Math.floor(Math.random() * (max - min + 1)) + min;
 			}
-		};
 
-		//new Chartist.Line('#visits-trends-chart', data, options);
-
-
-		// visits chart
-		data = {
-			labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-			series: [
-				[6384, 6342, 5437, 2764, 3958, 5068, 7654]
-			]
-		};
-
-		options = {
-			height: 300,
-			axisX: {
-				showGrid: false
-			},
-		};
-
-		//new Chartist.Bar('#visits-chart', data, options);
-
-
-		// real-time pie chart
-		var sysLoad = $('#system-load').easyPieChart({
-			size: 130,
-			barColor: function(percent) {
-				return "rgb(" + Math.round(200 * percent / 100) + ", " + Math.round(200 * (1.1 - percent / 100)) + ", 0)";
-			},
-			trackColor: 'rgba(245, 245, 245, 0.8)',
-			scaleColor: false,
-			lineWidth: 5,
-			lineCap: "square",
-			animate: 800
 		});
-
-		/*var updateInterval = 3000; // in milliseconds
-
-		setInterval(function() {
-			var randomVal;
-			randomVal = getRandomInt(0, 100);
-
-			sysLoad.data('easyPieChart').update(randomVal);
-			sysLoad.find('.percent').text(randomVal);
-		}, updateInterval);
-		*/
-		function getRandomInt(min, max) {
-			return Math.floor(Math.random() * (max - min + 1)) + min;
-		}
-
-	});
-	$("#exitlogin").click(function(){
-		$.ajax({
-			url:"adminer/logout"
-		}).done(function(){
-			location.href="login"
-		})
-	}) 
-	var vue =new Vue({
-			
+		$("#exitlogin").click(function(){
+			$.ajax({
+				url:"adminer/logout"
+			}).done(function(){
+				location.href="login"
+			})
+		}) 
+	var vue = new Vue({
 			el:"#main",
-			data:{
-				data:null,
-				addValue:null,
-				content:null,
-				addTitle:null
-			},
+				data:{
+					data:null,	
+				}
+			,
 			mounted:function(){
-				this.$http.get("app/getMessage").then(function(res){
-					console.log(res.data.data);
-					if(res.data.success){
-						this.data=res.data.data;
-					}else{
-						alert("请求数据失败")
-					}
-					
+				this.$http.post("adminer/getAllFeedBack").then(function(res){
+					this.data=res.data.data;
 				},function(){
 					alert("请求数据失败")
-				}) 
-				
+				})
 			},
 			methods:{
-				addbtn:function(){
-					document.getElementById("add").style.display="";
-				},
-				qx:function(){
-					document.getElementById("add").style.display="none";
-				},
 				
-				addItem:function(){
-					this.$http.post("adminer/addMessage",{title:this.addTitle,content:this.addValue},{emulateJSON: true}).then(function(res){
-						console.log(res.data.data);
-						if(res.data.success){
-							document.getElementById("add").style.display="none";
-							this.refrsh();
-							this.addTitle = "";
-							this.addValue = "";
-						}else{
-							alert("请求数据失败")
-						}
-						
-					},function(){
-						alert("请求数据失败")
-					}) 
-				},
-				dele:function(index){
-					if(!confirm("确定删除")){
-						return;
-					}
-				  this.$http.post("adminer/deleMessage",{id:index},{emulateJSON: true}).then(function(res){
-				  	if(res.data.success){
-				  		this.refrsh();
-				  	}else{
-				  		alert("删除失败");
-				  	}
-				  
-				  },function(){
-				  	alert("删除失败");
-				  })
-				},
-				refrsh:function(){
-					this.$http.get("app/getMessage").then(function(res){
-						console.log(res.data.data);
-						this.data=res.data.data;
-					},function(){
-						alert("请求数据失败")
-					}) 
-				}
 			}
 		})
+		
 		
 	</script>
 </body>
 
 </html>
+											

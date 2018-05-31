@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdr.interview.mapper.TbSchoolMapper">
+  <resultMap id="BaseResultMap" type="com.jdr.interview.entity.TbSchool">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="school_id" jdbcType="INTEGER" property="schoolId" />
+    <result column="school_name" jdbcType="VARCHAR" property="schoolName" />
+    <result column="school_type" jdbcType="INTEGER" property="schoolType" />
+    <result column="area_id" jdbcType="VARCHAR" property="areaId" />
+    <result column="area_name" jdbcType="VARCHAR" property="areaName" />
+    <result column="display_order" jdbcType="VARCHAR" property="displayOrder" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    school_id, school_name, school_type, area_id, area_name, display_order
+  </sql>
+    <select id="getByUniversityName" parameterType="string" resultType="com.jdr.interview.entity.TbSchool">
+        SELECT
+            *
+        FROM
+            tb_school
+        WHERE
+            school_name LIKE CONCAT('%'',#{name},''%')
+        OR
+            id LIKE CONCAT('%'',#{name},''%')
+        OR
+            role_type LIKE CONCAT('%'',#{name},''%')
+    </select>
+</mapper>

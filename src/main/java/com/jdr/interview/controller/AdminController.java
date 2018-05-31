@@ -19,6 +19,7 @@ import com.jdr.interview.bean.BusinessMessage;
 import com.jdr.interview.bean.BusinessMessageBuilder;
 import com.jdr.interview.bean.SystemStatusBean;
 import com.jdr.interview.conf.WebMvcConfig;
+import com.jdr.interview.entity.Feedback;
 import com.jdr.interview.entity.ZxExercise;
 import com.jdr.interview.service.AdminService;
 
@@ -171,5 +172,9 @@ public class AdminController {
 	@PostMapping("deleMessage")
 	public BusinessMessage<String> deleMessage(String id){
 		return adminService.deleMessage(id).build();
+	}
+	@PostMapping("getAllFeedBack")
+	public BusinessMessage<List<Feedback>> getAllFeedBack(){
+		return adminService.getAllFeedBack().build();
 	}
 }

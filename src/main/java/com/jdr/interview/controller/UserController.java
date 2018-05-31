@@ -13,6 +13,7 @@ import com.jdr.interview.bean.CollectAndWrongBean;
 import com.jdr.interview.bean.CollectBean;
 import com.jdr.interview.bean.OssBean;
 import com.jdr.interview.bean.TestStatus;
+import com.jdr.interview.bean.UserSignListBean;
 import com.jdr.interview.entity.User;
 import com.jdr.interview.entity.UserStatus;
 import com.jdr.interview.service.UserService;
@@ -109,6 +110,15 @@ public class UserController {
 	@GetMapping("getSignStatus")
 	public BusinessMessage<UserStatus> getSignStatus(String uid){
 		return testService.getSignStatus(uid).build();
+	}
+	/**
+	 * 获取用户签到信息列表  
+	 * @param uid    用户ID
+	 * @return
+	 */
+	@GetMapping("getSignList")
+	public BusinessMessage<List<UserSignListBean>> getSignList(String uid){
+		return testService.getSignList(uid).build();
 	}
 	@GetMapping("getTestStatus")
 	public BusinessMessage<TestStatus> getTestStatus(String uid){

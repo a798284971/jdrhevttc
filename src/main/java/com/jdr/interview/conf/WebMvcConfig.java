@@ -70,6 +70,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/tolunbo").setViewName("lunbo");
         //消息管理
         registry.addViewController("/tomessage").setViewName("message");
+        //反馈管理
+        registry.addViewController("/feedback").setViewName("feedback");
         super.addViewControllers(registry);
     }
 }

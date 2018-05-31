@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jdr.interview.bean.BusinessMessage;
 import com.jdr.interview.bean.TalkBean;
 import com.jdr.interview.bean.UserTalkBean;
+import com.jdr.interview.entity.Feedback;
 import com.jdr.interview.entity.Lunbo;
 import com.jdr.interview.entity.Message;
 import com.jdr.interview.entity.SigninTalk;
+import com.jdr.interview.entity.TbSchool;
+import com.jdr.interview.entity.UserSetting;
 import com.jdr.interview.mapper.LunboMapper;
 import com.jdr.interview.service.AppContentService;
 
@@ -93,5 +96,37 @@ public class AppContentController {
 					@RequestParam(value ="examType",required = false) String examType){
 			return appContentService.userSetting(uid,examNum,examType).build();
 		
+	}
+	/**
+	 * 获取用户的设置参数
+	 * @return
+	 */
+	@GetMapping("getUserSetting")
+	public BusinessMessage<UserSetting> getUserSetting(String uid){
+		return appContentService.getUserSetting(uid).build();
+	}
+	/**
+	 * 提交小报告
+	 * @param uid       用户ID
+	 * @param examNum   小报告内容
+	 * 
+	 * @return
+	 */
+	@GetMapping("feedback")
+	public BusinessMessage<String> feedback(String uid,String content){
+		return appContentService.feedback(uid,content).build();
+	}
+	/**
+	 * 获取用户提交的小报告
+	 * @param uid       用户ID
+	 * @return
+	 */
+	@GetMapping("getFeedback")
+	public BusinessMessage<List<Feedback>> getFeedback(String uid){
+		return appContentService.getFeedback(uid).build();
+	}
+	@GetMapping("getByUniversityName")
+	public BusinessMessage<List<TbSchool>> getByUniversityName(String name){
+		return appContentService.getByUniversityName(name).build();
 	}
 }

@@ -22,6 +22,7 @@ import com.jdr.interview.conf.WebMvcConfig;
 import com.jdr.interview.entity.Adminer;
 import com.jdr.interview.entity.Answer;
 import com.jdr.interview.entity.ChooseQuestion;
+import com.jdr.interview.entity.Feedback;
 import com.jdr.interview.entity.Lunbo;
 import com.jdr.interview.entity.Message;
 import com.jdr.interview.entity.UserStatus;
@@ -29,6 +30,7 @@ import com.jdr.interview.entity.ZxExercise;
 import com.jdr.interview.mapper.AdminerMapper;
 import com.jdr.interview.mapper.AnswerMapper;
 import com.jdr.interview.mapper.ChooseQuestionMapper;
+import com.jdr.interview.mapper.FeedbackMapper;
 import com.jdr.interview.mapper.LunboMapper;
 import com.jdr.interview.mapper.MessageMapper;
 import com.jdr.interview.mapper.UserMapper;
@@ -58,7 +60,8 @@ public class AdminService {
 	private MessageMapper msgMapper;
 	@Autowired
 	private UserStatusMapper userStatusMapper;
-	
+	@Autowired
+	private FeedbackMapper feedMapper;
 	public BusinessMessageBuilder<String> check(String user, String password, HttpSession session) {
 		BusinessMessageBuilder<String> builder = new BusinessMessageBuilder<>();
 		Adminer adminer = new Adminer();
@@ -325,6 +328,16 @@ public class AdminService {
 		else
 			builder.msg("删除失败")
 			.success(false);
+		return builder;
+	}
+
+	public BusinessMessageBuilder<List<Feedback>> getAllFeedBack() {
+		BusinessMessageBuilder<List<Feedback>> builder = new BusinessMessageBuilder<>();
+		Example example = new Example(Feedback.class);
+		example.setOrderByClause("create_time DESC");
+		List<Feedback> selectByExample = feedMapper.selectByExample(example);
+		builder.data(selectByExample)
+				.success(true);
 		return builder;
 	}
 	

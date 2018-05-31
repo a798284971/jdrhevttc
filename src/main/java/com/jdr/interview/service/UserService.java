@@ -21,11 +21,14 @@ import com.jdr.interview.bean.CollectAndWrongBean;
 import com.jdr.interview.bean.CollectBean;
 import com.jdr.interview.bean.OssBean;
 import com.jdr.interview.bean.TestStatus;
+import com.jdr.interview.bean.UserSignListBean;
+import com.jdr.interview.bean.UserTalkBean;
 import com.jdr.interview.entity.Answer;
 import com.jdr.interview.entity.Checkcode;
 import com.jdr.interview.entity.ChooseQuestion;
 import com.jdr.interview.entity.CorrectRate;
 import com.jdr.interview.entity.SigninTalk;
+import com.jdr.interview.entity.UseTalk;
 import com.jdr.interview.entity.User;
 import com.jdr.interview.entity.UserColllect;
 import com.jdr.interview.entity.UserFightup;
@@ -39,6 +42,7 @@ import com.jdr.interview.mapper.CheckcodeMapper;
 import com.jdr.interview.mapper.ChooseQuestionMapper;
 import com.jdr.interview.mapper.CorrectRateMapper;
 import com.jdr.interview.mapper.SigninTalkMapper;
+import com.jdr.interview.mapper.UseTalkMapper;
 import com.jdr.interview.mapper.UserColllectMapper;
 import com.jdr.interview.mapper.UserFightupMapper;
 import com.jdr.interview.mapper.UserMapper;
@@ -81,6 +85,8 @@ public class UserService {
 	private UserTeststatusMapper userTestStatusMapper;
 	@Autowired
 	private ZxExerciseMapper zxExeriseMapper;
+	@Autowired
+	private UseTalkMapper userTalkMapper;
 	
 	public BusinessMessageBuilder<User> findUserByUserName(String username, String password) {
 		BusinessMessageBuilder<User> builder = new BusinessMessageBuilder<>();
@@ -102,6 +108,7 @@ public class UserService {
 							date1.getDay()==date.getDay()) {
 					}else {
 						status.setStudyNum(0);
+						status.setQuestionNum(0);
 						statusMapper.updateByPrimaryKey(status);
 					}
 				}
@@ -391,7 +398,7 @@ public class UserService {
 	}
 
 	public BusinessMessageBuilder<OssBean> getOssid(String uid) {
-		// TODO Auto-generated method stub
+	
 		BusinessMessageBuilder<OssBean> builder = new BusinessMessageBuilder<>();
 		User selectByPrimaryKey = userMapper.selectByPrimaryKey(Integer.parseInt(uid));
 		if(selectByPrimaryKey!=null) {
@@ -403,6 +410,44 @@ public class UserService {
 		}
 		else
 			builder.success(false);
+		return builder;
+	}
+
+	public BusinessMessageBuilder<List<UserSignListBean>> getSignList(String uid) {
+		BusinessMessageBuilder<List<UserSignListBean>> builder = new BusinessMessageBuilder<>();
+		SigninTalk signinTalk = new SigninTalk();
+		signinTalk.setUserId(Integer.parseInt(uid));
+		List<SigninTalk> select = talkMapper.select(signinTalk);
+		ArrayList<UserSignListBean> dataList = new ArrayList<UserSignListBean>();
+		for (SigninTalk temp : select) {
+			UserSignListBean userSignListBean = new UserSignListBean();
+			userSignListBean.setUid(temp.getUserId());
+			Date stamp = DateUtil.getDateFromTimeStamp(temp.getCreateTime());
+			userSignListBean.setCreateTime(DateUtil.getStringDate(stamp));
+			userSignListBean.setContent(temp.getTalkText());
+			Example example = new Example(UseTalk.class);
+			example.createCriteria().andEqualTo("talkId", temp.getTalkId());
+			example.setOrderByClause("time DESC");
+			List<UseTalk> selectByExample = userTalkMapper.selectByExample(example);
+			List<UserTalkBean> list = new ArrayList<UserTalkBean>();
+			for(UseTalk bean:selectByExample) {
+				UserTalkBean userTalkBean = new UserTalkBean();
+				userTalkBean.setId(bean.getId());
+				userTalkBean.setText(bean.getText());
+				userTalkBean.setTime(DateUtil.getDatePoor(new Date(),DateUtil.getDateFromTimeStamp(bean.getTime())));
+				//用户信息
+				User userKey = userMapper.selectByPrimaryKey(bean.getUserId());
+				userTalkBean.setNickName(userKey.getNickname());
+				userTalkBean.setHeadImg(userKey.getAvastar());
+				
+				list.add(userTalkBean);
+			}
+			userSignListBean.setTalkList(list);
+			dataList.add(userSignListBean);
+		}
+		builder.success(true)
+		.data(dataList)
+		.msg("查询成功");
 		return builder;
 	}
 }

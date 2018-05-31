@@ -170,7 +170,7 @@ public class ExerciseService {
 			correctMapper.updateByPrimaryKey(temp);
 		}
 		UserStatus key = statusMapper.selectByPrimaryKey(Integer.parseInt(uid));
-		key.setStudyNum(key.getQuestionNum()+list.size());
+		key.setQuestionNum(key.getQuestionNum()+list.size());
 		statusMapper.updateByPrimaryKeySelective(key);
 		
 		//练习状态
@@ -241,7 +241,7 @@ public class ExerciseService {
 		criteria.andEqualTo("superioe",Integer.parseInt(superioe));
 		
 		List<ChooseQuestion> data = chooseMapper.selectByExample(example);
-		builder.data(getRandomList(data, 5));
+		builder.data(getRandomList(data, 10));
 		builder.success(true);
 		builder.msg("查找成功");
 		return builder;
@@ -275,6 +275,10 @@ public class ExerciseService {
     }
 	public BusinessMessageBuilder<List<ChooseQuestion>> getExamQuestion(String uid) {
 		BusinessMessageBuilder<List<ChooseQuestion>> builder = new BusinessMessageBuilder<List<ChooseQuestion>>();
+		UserStatus key = statusMapper.selectByPrimaryKey(Integer.parseInt(uid));
+		key.setStudyNum(key.getStudyNum()+1);
+		statusMapper.updateByPrimaryKeySelective(key);
+		
 		Example example = new Example(ChooseQuestion.class);
 		Criteria criteria = example.createCriteria();
 		

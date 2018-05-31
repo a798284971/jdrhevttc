@@ -18,16 +18,20 @@ import com.alibaba.druid.util.StringUtils;
 import com.jdr.interview.bean.BusinessMessageBuilder;
 import com.jdr.interview.bean.TalkBean;
 import com.jdr.interview.bean.UserTalkBean;
+import com.jdr.interview.entity.Feedback;
 import com.jdr.interview.entity.Lunbo;
 import com.jdr.interview.entity.Message;
 import com.jdr.interview.entity.SigninTalk;
+import com.jdr.interview.entity.TbSchool;
 import com.jdr.interview.entity.UseTalk;
 import com.jdr.interview.entity.User;
 import com.jdr.interview.entity.UserFightup;
 import com.jdr.interview.entity.UserSetting;
+import com.jdr.interview.mapper.FeedbackMapper;
 import com.jdr.interview.mapper.LunboMapper;
 import com.jdr.interview.mapper.MessageMapper;
 import com.jdr.interview.mapper.SigninTalkMapper;
+import com.jdr.interview.mapper.TbSchoolMapper;
 import com.jdr.interview.mapper.UseTalkMapper;
 import com.jdr.interview.mapper.UserFightupMapper;
 import com.jdr.interview.mapper.UserMapper;
@@ -54,7 +58,10 @@ public class AppContentService {
 	private UseTalkMapper userTalkMapper;
 	@Autowired
 	private UserSettingMapper userSettingMapper;
-	
+	@Autowired
+	private FeedbackMapper feedMapper;
+	@Autowired
+	private TbSchoolMapper schoolMapper;
 	public BusinessMessageBuilder<List<Lunbo>> getLunbo() {
 		BusinessMessageBuilder<List<Lunbo>> builder = new BusinessMessageBuilder<List<Lunbo>>();
 		List<Lunbo> list = lunboMapper.selectAll();
@@ -202,7 +209,8 @@ public class AppContentService {
 		userSetting.setUserId(Integer.parseInt(uid));
 		if(!StringUtil.isEmpty(examNum))
 			userSetting.setExamNum(Integer.parseInt(examNum));
-		userSetting.setExamType(examType);
+		if(!StringUtil.isEmpty(examType))
+			userSetting.setExamType(examType);
 		int update = userSettingMapper.updateByPrimaryKeySelective(userSetting);
 		if(update!=0)
 			builder.success(true)
@@ -210,6 +218,50 @@ public class AppContentService {
 		else
 			builder.success(false)
 			.msg("修改失败");
+		return builder;
+	}
+	public BusinessMessageBuilder<String> feedback(String uid, String content) {
+		BusinessMessageBuilder<String> builder = new BusinessMessageBuilder<String>();
+		Feedback feedback = new Feedback();
+		feedback.setUid(Integer.parseInt(uid));
+		feedback.setContent(content);
+		feedback.setCreateTime(DateUtil.getStringDate(new Date()));
+		int insert = feedMapper.insert(feedback);
+		if(insert==1)
+			builder.success(true)
+				.msg("提交成功");
+		else
+			builder.success(false)
+				.msg("提交失败");
+		return builder;
+	}
+	public BusinessMessageBuilder<List<Feedback>> getFeedback(String uid) {
+		BusinessMessageBuilder<List<Feedback>> builder = new BusinessMessageBuilder<List<Feedback>>();
+		Feedback feedback = new Feedback();
+		feedback.setUid(Integer.parseInt(uid));
+		List<Feedback> select = feedMapper.select(feedback);
+		builder.success(true)
+				.data(select);
+		return builder;
+	}
+	public BusinessMessageBuilder<UserSetting> getUserSetting(String uid) {
+		BusinessMessageBuilder<UserSetting> builder = new BusinessMessageBuilder<UserSetting>();
+		UserSetting userSetting = new UserSetting();
+		userSetting.setUserId(Integer.parseInt(uid));
+		UserSetting selectOne = userSettingMapper.selectOne(userSetting);
+		builder.success(true)
+				.data(selectOne);
+		return builder;
+	}
+	public BusinessMessageBuilder<List<TbSchool>> getByUniversityName(String name) {
+		BusinessMessageBuilder<List<TbSchool>> builder = new BusinessMessageBuilder<List<TbSchool>>();
+		//List<TbSchool> byUniversityName = schoolMapper.getByUniversityName(name);
+		
+		Example example = new Example(TbSchool.class);
+		example.createCriteria().andLike("schoolName", "%"+name+"%");
+		List<TbSchool> selectByExample = schoolMapper.selectByExample(example);
+		builder.success(true)
+		.data(selectByExample);
 		return builder;
 	}
 	
